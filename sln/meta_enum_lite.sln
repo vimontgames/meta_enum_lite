@@ -7,20 +7,20 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "meta_enum_lite", "meta_enum
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|x64 = Debug|x64
-		Debug|x86 = Debug|x86
-		Release|x64 = Release|x64
-		Release|x86 = Release|x86
+		Debug|x64 (LLVM) = Debug|x64 (LLVM)
+		Debug|x64 (MSVC) = Debug|x64 (MSVC)
+		Release|x64 (LLVM) = Release|x64 (LLVM)
+		Release|x64 (MSVC) = Release|x64 (MSVC)
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{9B0D4F2F-B081-45AD-BE9E-00B5FA302462}.Debug|x64.ActiveCfg = Debug|x64
-		{9B0D4F2F-B081-45AD-BE9E-00B5FA302462}.Debug|x64.Build.0 = Debug|x64
-		{9B0D4F2F-B081-45AD-BE9E-00B5FA302462}.Debug|x86.ActiveCfg = Debug|Win32
-		{9B0D4F2F-B081-45AD-BE9E-00B5FA302462}.Debug|x86.Build.0 = Debug|Win32
-		{9B0D4F2F-B081-45AD-BE9E-00B5FA302462}.Release|x64.ActiveCfg = Release|x64
-		{9B0D4F2F-B081-45AD-BE9E-00B5FA302462}.Release|x64.Build.0 = Release|x64
-		{9B0D4F2F-B081-45AD-BE9E-00B5FA302462}.Release|x86.ActiveCfg = Release|Win32
-		{9B0D4F2F-B081-45AD-BE9E-00B5FA302462}.Release|x86.Build.0 = Release|Win32
+		{9B0D4F2F-B081-45AD-BE9E-00B5FA302462}.Debug|x64 (LLVM).ActiveCfg = Debug (LLVM)|x64
+		{9B0D4F2F-B081-45AD-BE9E-00B5FA302462}.Debug|x64 (LLVM).Build.0 = Debug (LLVM)|x64
+		{9B0D4F2F-B081-45AD-BE9E-00B5FA302462}.Debug|x64 (MSVC).ActiveCfg = Debug (MSVC)|x64
+		{9B0D4F2F-B081-45AD-BE9E-00B5FA302462}.Debug|x64 (MSVC).Build.0 = Debug (MSVC)|x64
+		{9B0D4F2F-B081-45AD-BE9E-00B5FA302462}.Release|x64 (LLVM).ActiveCfg = Release (LLVM)|x64
+		{9B0D4F2F-B081-45AD-BE9E-00B5FA302462}.Release|x64 (LLVM).Build.0 = Release (LLVM)|x64
+		{9B0D4F2F-B081-45AD-BE9E-00B5FA302462}.Release|x64 (MSVC).ActiveCfg = Release (MSVC)|x64
+		{9B0D4F2F-B081-45AD-BE9E-00B5FA302462}.Release|x64 (MSVC).Build.0 = Release (MSVC)|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

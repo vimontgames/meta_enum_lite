@@ -16,7 +16,12 @@ void debugPrint(const char * _format, ...)
 
 namespace test
 {
-    meta_enum(MyEnum, int, A = 65, B = 66, C = 67);
+    meta_enum_class(MyEnum, 
+        int, 
+        A = 65, 
+        B = 66, 
+        C = 67
+    );
 }
 
 int main()
