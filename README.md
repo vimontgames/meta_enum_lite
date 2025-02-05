@@ -22,7 +22,9 @@ enum reflection data like this:
 ## More template-friendly
 
 Compared to original meta_enum, the macro now also declares a traits struct so that we can get the *enum*_meta from enum typename.
-In order to be compatible with LLVM that requires the template specialization traits to be declared at global scope, enums defined in namespaces needs to pass the namespace as argument so that the macro can temporarily "exit" the name space to declare the traits (only one level of fully qualified namespace names is supported).
+In order to be compatible with LLVM that requires the template specialization traits to be declared at global scope, 
+enums defined in namespaces needs to pass the namespace as argument so that the macro can temporarily "exit" the name space to declare the traits. 
+Only one level of fully qualified namespace names is supported.
 
 ## Usage
 
@@ -68,6 +70,7 @@ namespace test
 namespace test
 {
     vg_enum_class_global(test, MyEnumRGBA,
+        short,
         R = 0x000F,
         G = 0x00F0,
         B = 0x0F00,
