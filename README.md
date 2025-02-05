@@ -1,11 +1,11 @@
-# Meta Enum Lite - Static reflection on enums in C++17
+# Meta Enum Lite 2.0 - Static reflection on enums in C++17
 
 ## Brief
 
 I adapted [Meta Enum](https://github.com/therocode/meta_enum) for the needs of [vgframework](https://github.com/vimontgames/vgframework) 
 with the following goals:
 
-- More template-friendly
+- More template-friendly (but still LLVM-compatible ;))
 - Faster compilation times
 
 ## History
@@ -21,15 +21,59 @@ enum reflection data like this:
 
 ## More template-friendly
 
-Compared to original meta_enum, the macro now also declares a traits struct so that we can get the *enum*_meta from enum typename: 
+Compared to original meta_enum, the macro now also declares a traits struct so that we can get the *enum*_meta from enum typename.
+In order to be compatible with LLVM that requires the template specialization traits to be declared at global scope, enums defined in namespaces needs to pass the namespace as argument so that the macro can temporarily "exit" the name space to declare the traits (only one level of fully qualified namespace names is supported).
 
+## Usage
+
+### Declare `enum MyEnumXYZ` in namespace `test`
 ``` 
-#define meta_enum(Type, UnderlyingType, ...)\
-[...]
-template <> struct ::MetaEnumTraits<Type>\
-{\
-    static const inline MetaEnum<Type, std::underlying_type_t<Type>, Type##_meta.members.size()> Meta = Type##_meta;\
-};
+namespace test
+{
+    vg_enum(test, MyEnumABC,
+        X = 0,
+        Y = 1,
+        Z = 2
+    );
+}
+``` 
+
+### Declare `enum class MyEnumABC : uint` in namespace `test`
+``` 
+namespace test
+{
+    vg_enum_class(test, MyEnumABC,
+        uint,
+        A = 65,
+        B = 66,
+        C = 67
+    );
+}
+``` 
+
+### Declare `enum MyEnumUVW` at global scope
+``` 
+namespace test
+{
+    vg_enum_global(test, MyEnumUVW,
+        U = 0,
+        V = 1,
+        W = 2
+    );
+}
+``` 
+
+### Declare `enum class MyEnumRGBA : short` at global scope
+``` 
+namespace test
+{
+    vg_enum_class_global(test, MyEnumRGBA,
+        R = 0x000F,
+        G = 0x00F0,
+        B = 0x0F00,
+        A = 0xF000
+    );
+}
 ``` 
 
 Then to get metadata object associated to an enum type we just need to use
@@ -40,39 +84,33 @@ MetaEnumTraits<Type>::Meta
 This way, it's possible to implement functions that does not require to specify the meta object name.
 
 ### getEnumString
+Returns a std::string with the label of an enum value.
+
 ``` 
-template <typename Type> constexpr const size_t getEnumSize()
-{
-    return MetaEnumTraits<Type>::Meta.members.size();
-}
+MyEnumABC enumValue = MyEnumABC::C;
+[...]
+string label = getEnumString(enumValue);
 ``` 
 
-### getEnumString
+### getEnumCString
+Returns a const char * with the label of an enum value.
 ``` 
-template <typename Type> constexpr const std::string getEnumString(Type e)
-{
-    const auto & members = getEnumMembers<Type>();
-    for (auto i = 0; i < members.size(); ++i)
-    {
-        const auto & member = members[i];
-        if (member.value == e)
-            return std::string(member.name.data(), member.name.size());
-    }
-    return std::string{};
-}
+MyEnumABC enumValue = MyEnumABC::C;
+[...]
+const char * label = getEnumCString(enumValue);
 ``` 
 
 ### getEnumValue
+Returns the enum value at index *n*
+```
+getEnumValue<MyEnumABC>(0);
+```
+
+### enumCount
 ``` 
-template <typename Type> constexpr Type getEnumValue(unsigned int index)
-{
-    const auto & members = getEnumMembers<Type>();
-    if (index < members.size())
-        return members[index].value;
-    else
-        return (Type)0;
-}
+const auto count = enumCount<MyEnumABC>();
 ``` 
+Returns the number of elements declared in the enum.
 
 ## Faster compilation times
 
